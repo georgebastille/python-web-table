@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Google Query Forwarder</title>
+    </head>
+    <body>
+        <p>Reads the entered query and forwards to Google</p>
+        <form>
+            <label for="query">Search Query</label><br>
+            <input type="text" id="query" name="query"><br>
+        </form>
+        <input id="run" type="button" value="Query" onClick="readQueryAndSearch();" />
+    <script>
+        function readQueryAndSearch(){
+            var queryText = document.getElementById("query").value;
+            window.location = `https://www.google.com/search?q=${queryText}`;
+        }
+    </script>
+    </body>
+</html>
