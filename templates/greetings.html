@@ -13,6 +13,22 @@
             <input type="text" id="userName" name="userName"><br>
         </form>
         <input id="run" type="button" value="Hello" onClick="greetUser();" />
+        {% if dataframe %}
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Region</th>
+                <th>Repossesions</th>
+            </tr>
+            {% for row in dataframe %}
+            <tr>
+                <td>{{row.date}}</td>
+                <td>{{row.RegionName}}</td>
+                <td>{{row.SalesVolume}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
     <script>
         function greetUser(){
             var queryText = document.getElementById("userName").value;
