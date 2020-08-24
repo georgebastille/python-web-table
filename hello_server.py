@@ -11,16 +11,26 @@ app = Flask(__name__)
 
 @app.route("/")
 def landing():
-    return render_template("greetings.html")
+    df = get_data()
+    return render_template("greetings.html", dataframe=df)
 
 
-@app.route("/<query>")
-def run_query(query):
-    df = pd.read_csv("./data/Repossession-2019-07.csv").to_dict("records")
-    return render_template("greetings.html", name=query, dataframe=df)
+@app.route("/<dateFilter>")
+def run_query(dateFilter):
+    df = get_data(dateFilter)
+    return render_template("greetings.html", dataframe=df)
 
 
 # Next up:  https://stackoverflow.com/questions/9198334/how-to-build-up-a-html-table-with-a-simple-for-loop-in-jinja2
+
+
+def get_data(dateFilter=None):
+    df = pd.read_csv("./data/Repossession-2019-07.csv")
+    if dateFilter:
+        df["date_idx"] = pd.to_datetime(df["date"])
+        df.set_index("date_idx", inplace=True)
+        df = df[dateFilter]
+    return df.to_dict("records")
 
 
 if __name__ == "__main__":

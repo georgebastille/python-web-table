@@ -1,37 +1,32 @@
 <html>
     <head>
-        <title>Greeter</title>
+        <title>Tabular Results</title>
     </head>
     <body>
-        {% if name %}
-        <h1>Hello {{ name }}!</h1>
-        {% else %}
-        <h1>Hello, World!</h1>
-        {% endif %}
         <form>
-            <label for="userName">Your Name</label><br>
-            <input type="text" id="userName" name="userName"><br>
+            <label for="dateFilter">Date String filter</label><br>
+            <input type="text" id="dateFilter" name="dateFilter"><br>
         </form>
-        <input id="run" type="button" value="Hello" onClick="greetUser();" />
+        <input id="run" type="button" value="Query" onClick="runQuery();" />
         {% if dataframe %}
-        <table>
+        <table style="width:100%">
             <tr>
-                <th>Date</th>
-                <th>Region</th>
-                <th>Repossesions</th>
+                {% for header in dataframe[0].keys() %}
+                <th>{{header}}</th>
+                {% endfor %}
             </tr>
             {% for row in dataframe %}
             <tr>
-                <td>{{row.date}}</td>
-                <td>{{row.RegionName}}</td>
-                <td>{{row.SalesVolume}}</td>
+                {% for value in row.values() %}
+                <td>{{value}}</td>
+                {% endfor %}
             </tr>
             {% endfor %}
         </table>
         {% endif %}
     <script>
-        function greetUser(){
-            var queryText = document.getElementById("userName").value;
+        function runQuery(){
+            var queryText = document.getElementById("dateFilter").value;
             window.location.href = `${window.location.origin}/${queryText}`;
         }
     </script>
