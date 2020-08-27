@@ -1,4 +1,5 @@
 import os
+from typing import Dict, List
 
 import pandas as pd
 from flask import Flask, render_template, request
@@ -22,7 +23,8 @@ def run_query():
     return render_template("tabular.html", rows=df)
 
 
-def get_data(dateFilter=None):
+def get_data(dateFilter: str = None) -> List[Dict]:
+    # TODO: Make this an interface and import it
     df = pd.read_csv("./data/Repossession-2019-07.csv")
     if dateFilter:
         df["date_idx"] = pd.to_datetime(df["date"], dayfirst=True)
