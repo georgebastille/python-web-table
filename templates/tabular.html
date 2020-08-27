@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Tabular Results</title>
+    </head>
+    <body>
+        <form action="/query">
+            <label for="dateFilter">Date String filter</label><br>
+            <input type="text" id="dateFilter" name="dateFilter"><br><br>
+            <input type="submit" value="Submit">
+        </form>
+        {% if rows %}
+        <table style="width:80%">
+            <tr>
+                {% for header in rows[0].keys() %}
+                <th>{{header}}</th>
+                {% endfor %}
+            </tr>
+            {% for row in rows %}
+            <tr>
+                {% for value in row.values() %}
+                <td>{{value}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </body>
+</html>

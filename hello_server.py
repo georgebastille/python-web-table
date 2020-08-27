@@ -1,7 +1,7 @@
 import os
 
 import pandas as pd
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 # Set environment variables
 os.environ["FLASK_ENV"] = "development"
@@ -12,16 +12,14 @@ app = Flask(__name__)
 @app.route("/")
 def landing():
     df = get_data()
-    return render_template("greetings.html", dataframe=df)
+    return render_template("tabular.html", rows=df)
 
 
-@app.route("/<dateFilter>")
-def run_query(dateFilter):
-    df = get_data(dateFilter)
-    return render_template("greetings.html", dataframe=df)
-
-
-# Next up:  https://stackoverflow.com/questions/9198334/how-to-build-up-a-html-table-with-a-simple-for-loop-in-jinja2
+@app.route("/query")
+def run_query():
+    params = request.args
+    df = get_data(params.get("dateFilter", None))
+    return render_template("tabular.html", rows=df)
 
 
 def get_data(dateFilter=None):
