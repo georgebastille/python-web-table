@@ -25,7 +25,7 @@ def run_query():
 def get_data(dateFilter=None):
     df = pd.read_csv("./data/Repossession-2019-07.csv")
     if dateFilter:
-        df["date_idx"] = pd.to_datetime(df["date"])
+        df["date_idx"] = pd.to_datetime(df["date"], dayfirst=True)
         df.set_index("date_idx", inplace=True)
         df = df.loc[dateFilter]
     return df.to_dict("records")
