@@ -27,7 +27,7 @@ def get_data(dateFilter=None):
     if dateFilter:
         df["date_idx"] = pd.to_datetime(df["date"])
         df.set_index("date_idx", inplace=True)
-        df = df[dateFilter]
+        df = df.loc[dateFilter]
     return df.to_dict("records")
 
 
