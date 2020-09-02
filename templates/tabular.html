@@ -7,7 +7,10 @@
             <label for="dateFilter">Date String filter</label><br>
             <input type="text" id="dateFilter" name="dateFilter"><br><br>
             <input type="submit" value="Submit">
-        </form>
+        </form> 
+        {% if image %}
+        <img style="width:100%" src={{image}}><br><br>
+        {% endif %}
         {% if rows %}
         <table style="width:80%">
             <tr>
